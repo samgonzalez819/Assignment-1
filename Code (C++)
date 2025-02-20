@@ -1,0 +1,101 @@
+// Assigment 1: Data Structures
+// Name: Samantha Gonzalez
+// Date: 02/19/2025
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+class LinkedList {
+public:
+    Node* head;
+
+    LinkedList() { head = nullptr; }
+
+    // Function to insert a node at a given index
+    int LinkedlistInsert(int data, int index, Node** Ptr) {
+        Node* newNode = new Node{ data, nullptr };
+        if (!newNode) return -1; // Memory distribution fail
+
+        // If index is 0, insert at the head of the list
+        if (index == 0) {
+            newNode->next = *Ptr;
+            *Ptr = newNode; // Updated head pointer statement
+            return 0;
+        }
+
+        // Traverse to the position before the index
+        Node* temp = *Ptr;
+        for (int i = 0; temp != nullptr && i < index - 1; i++) {
+            temp = temp->next;
+        }
+
+        if (!temp) return -1; // Index out of bounds
+
+        // New node statement after temp
+        newNode->next = temp->next;
+        temp->next = newNode;
+        return 0;
+    }
+
+    // Delete Node function statement
+    int LinkedlistDelete(int index, Node** Ptr) {
+        if (*Ptr == nullptr) return -1; // Empty list
+
+        Node* temp = *Ptr;
+
+        // if statement if index is 0 the node will delete
+        if (index == 0) {
+            *Ptr = temp->next;
+            delete temp;
+            return 0;
+        }
+
+        // Traverse to the node just before the one to delete
+        Node* prev = nullptr;
+        for (int i = 0; temp != nullptr && i < index; i++) {
+            prev = temp;
+            temp = temp->next;
+        }
+
+        if (!temp) return -1; // Index out of bounds
+
+        // Remove the node from the list
+        NewFunction(prev, temp);
+        delete temp;
+        return 0;
+    }
+    // extracted function
+    void NewFunction(Node* prev, Node* temp)
+    {
+        prev->next = temp->next;
+    }
+
+    // Function to display the linked list
+    void display(Node* Ptr) {
+        while (Ptr) {
+            cout << Ptr->data << " -> ";
+            Ptr = Ptr->next;
+        }
+        cout << "NULL" << endl;
+    }
+};
+
+int main() {
+    LinkedList list;
+
+    //List of Node Inserts
+    list.LinkedlistInsert(5, 0, &list.head); // Inserts 5 at index 0
+    list.LinkedlistInsert(10, 1, &list.head); // Inserts 10 at index 1
+    list.LinkedlistInsert(15, 1, &list.head); // Inserts 15 at index 1
+    list.display(list.head);
+
+    //Note Deleted at insert 1
+    list.LinkedlistDelete(1, &list.head);
+    list.display(list.head);
+
+    return 0;
+}
