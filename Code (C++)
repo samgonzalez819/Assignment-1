@@ -27,13 +27,13 @@ public:
             return 0;
         }
 
-        // Traverse to the position before the index
+        // Traverse
         Node* temp = *Ptr;
         for (int i = 0; temp != nullptr && i < index - 1; i++) {
             temp = temp->next;
         }
 
-        if (!temp) return -1; // Index out of bounds
+        if (!temp) return -1; 
 
         // New node statement after temp
         newNode->next = temp->next;
@@ -68,7 +68,7 @@ public:
         delete temp;
         return 0;
     }
-    // extracted function
+    // Extracted function
     void NewFunction(Node* prev, Node* temp)
     {
         prev->next = temp->next;
