@@ -18,7 +18,7 @@ public:
     // Function to insert a node at a given index
     int LinkedlistInsert(int data, int index, Node** Ptr) {
         Node* newNode = new Node{ data, nullptr };
-        if (!newNode) return -1; // Memory distribution fail
+        if (!newNode) return -1; 
 
         // If index is 0, insert at the head of the list
         if (index == 0) {
